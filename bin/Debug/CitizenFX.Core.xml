@@ -6592,6 +6592,17 @@
             Destroys a DUI browser.
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.DOOR_SYSTEM_GET_ACTIVE">
+            <summary>
+            Returns a list of door system entries: a door system hash (see [ADD_DOOR_TO_SYSTEM](#_0x6F8838D03D1DC226)) and its object handle.
+            
+            The data returned adheres to the following layout:
+            
+            ```
+            [{doorHash1, doorHandle1}, ..., {doorHashN, doorHandleN}]
+            ```
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.EXPERIMENTAL_LOAD_CLONE_CREATE">
             <summary>
             This native is not implemented.
@@ -6699,6 +6710,22 @@
         <member name="F:CitizenFX.Core.Native.Hash.GET_ENTITY_ALPHA">
             <summary>
             Returns the NUI window handle for a specified DUI browser object.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_GAME_POOL">
+            <summary>
+            Returns all pool handles for the given pool name; the data returned adheres to the following layout:
+            
+            ```
+            [ 770, 1026, 1282, 1538, 1794, 2050, 2306, 2562, 2818, 3074, 3330, 3586, 3842, 4098, 4354, 4610, ...]
+            ```
+            
+            ### Supported Pools
+            
+            **1**: CPed  
+            **2**: CObject  
+            **3**: CVehicle  
+            **4**: CPickup
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_MAP_ZOOM_DATA_LEVEL">
@@ -6901,6 +6928,11 @@
         <member name="F:CitizenFX.Core.Native.Hash.GET_SCENARIO_PED_DENSITY_MULTIPLIER">
             <summary>
             A getter for [SET_SCENARIO_PED_DENSITY_MULTIPLIER_THIS_FRAME](#_0x7A556143A1C03898).
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.GET_STATE_BAG_VALUE">
+            <summary>
+            Returns the value of a state bag key.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.GET_VEHICLE_CHEAT_POWER_INCREASE">
@@ -7120,6 +7152,11 @@
             Example: `local data = LoadResourceFile("devtools", "data.json")`
             </summary>
         </member>
+        <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_ADD_VOICE_CHANNEL_LISTEN">
+            <summary>
+            Starts listening to the specified channel, when available.
+            </summary>
+        </member>
         <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_ADD_VOICE_TARGET_CHANNEL">
             <summary>
             Adds the specified channel to the target list for the specified Mumble voice target ID.
@@ -7153,6 +7190,22 @@
         <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_GET_VOICE_CHANNEL_FROM_SERVER_ID">
             <summary>
             Returns the mumble voice channel from a player's server id.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_IS_CONNECTED">
+            <summary>
+            This native will return true if the user succesfully connected to the voice server.
+            If the user disabled the voice-chat setting it will return false.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_REMOVE_VOICE_CHANNEL_LISTEN">
+            <summary>
+            Stops listening to the specified channel.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_SET_SERVER_ADDRESS">
+            <summary>
+            Changes the Mumble server address to connect to, and reconnects to the new address.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.MUMBLE_SET_VOICE_TARGET">
@@ -7525,11 +7578,21 @@
             A setter for [`GetMillisecondsPerGameMinute`](#_0x2F8B4D1C595B11DB).
             </summary>
         </member>
-        <member name="F:CitizenFX.Core.Native.Hash.SET_MINIMAP_HIDE_FOW">
+        <member name="F:CitizenFX.Core.Native.Hash.SET_MINIMAP_CLIP_TYPE">
             <summary>
             Overrides how many real ms are equal to one game minute.
             A setter for [`GetMillisecondsPerGameMinute`](#_0x2F8B4D1C595B11DB).
             </summary>
+            <summary>
+            Sets the type for the minimap blip clipping object to be either rectangular or rounded.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.SET_MINIMAP_COMPONENT_POSITION">
+            <summary>
+            Overrides the minimap component data (from `common:/data/ui/frontend.xml`) for a specified component.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.SET_MINIMAP_HIDE_FOW">
             <summary>
             Reveals the entire minimap (FOW = Fog of War)
             </summary>
@@ -7574,6 +7637,11 @@
         <member name="F:CitizenFX.Core.Native.Hash.SET_SCENARIO_GROUP_ENABLED">
             <summary>
             Sets a pixel in the specified runtime texture. This will have to be committed using `COMMIT_RUNTIME_TEXTURE` to have any effect.
+            </summary>
+        </member>
+        <member name="F:CitizenFX.Core.Native.Hash.SET_STATE_BAG_VALUE">
+            <summary>
+            Internal function for setting a state bag value.
             </summary>
         </member>
         <member name="F:CitizenFX.Core.Native.Hash.SET_VEHICLE_AUTO_REPAIR_DISABLED">
@@ -8141,7 +8209,7 @@
             A runtime texture handle.
             </returns>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.CreateRuntimeTextureFromDuiHandle(System.Int64,System.Int64,System.String)">
+        <member name="M:CitizenFX.Core.Native.API.CreateRuntimeTextureFromDuiHandle(System.Int64,System.String,System.String)">
             <summary>
             Creates a runtime texture from a DUI handle.
             </summary>
@@ -8158,7 +8226,7 @@
             The runtime texture handle.
             </returns>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.CreateRuntimeTextureFromDuiHandle2(System.Int64,System.String,System.String)">
+        <member name="M:CitizenFX.Core.Native.API.CreateRuntimeTextureFromDuiHandle2(System.Int64,System.Int64,System.String)">
             <summary>
             Creates a runtime texture from a DUI handle.
             </summary>
@@ -8269,12 +8337,19 @@
             :
             </param>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneCreate(System.String,System.Int32,System.String)">
+        <member name="M:CitizenFX.Core.Native.API.DoorSystemGetActive">
             <summary>
-            This native is not implemented.
+            Returns a list of door system entries: a door system hash (see [ADD_DOOR_TO_SYSTEM](#_0x6F8838D03D1DC226)) and its object handle.
+            The data returned adheres to the following layout:
+            ```
+            [{doorHash1, doorHandle1}, ..., {doorHashN, doorHandleN}]
+            ```
             </summary>
+            <returns>
+            An object containing a list of door system entries.
+            </returns>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneCreate2(System.String,System.Int32,System.String)">
+        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneCreate(System.String,System.Int32,System.String)">
             <summary>
             This native is not implemented.
             </summary>
@@ -8282,28 +8357,33 @@
             <param name="objectId" />
             <param name="tree" />
         </member>
-        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneSync(System.Int32,System.String)">
+        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneCreate2(System.String,System.Int32,System.String)">
             <summary>
             This native is not implemented.
             </summary>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneSync2(System.Int32,System.String)">
+        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneSync(System.Int32,System.String)">
             <summary>
             This native is not implemented.
             </summary>
             <param name="entity" />
             <param name="data" />
         </member>
+        <member name="M:CitizenFX.Core.Native.API.ExperimentalLoadCloneSync2(System.Int32,System.String)">
+            <summary>
+            This native is not implemented.
+            </summary>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.ExperimentalSaveCloneCreate(System.Int32)">
             <summary>
             This native is not implemented.
             </summary>
-            <param name="entity" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.ExperimentalSaveCloneCreate2(System.Int32)">
             <summary>
             This native is not implemented.
             </summary>
+            <param name="entity" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.ExperimentalSaveCloneSync(System.Int32)">
             <summary>
@@ -8451,6 +8531,22 @@
             <summary>
             Return example: 1207.69_dev_pc
             </summary>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.GetGamePool(System.String)">
+            <summary>
+            Returns all pool handles for the given pool name; the data returned adheres to the following layout:
+            ```
+            [ 770, 1026, 1282, 1538, 1794, 2050, 2306, 2562, 2818, 3074, 3330, 3586, 3842, 4098, 4354, 4610, ...]
+            ```
+            ### Supported Pools
+            **1**: CPed
+            **2**: CObject
+            **3**: CVehicle
+            **4**: CPickup
+            </summary>
+            <returns>
+            An object containing a list of all pool handles
+            </returns>
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetLabelTextByHash(System.UInt32)">
             <summary>
@@ -8972,6 +9068,14 @@
             :
             </param>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.GetStateBagValue(System.String,System.String)">
+            <summary>
+            Returns the value of a state bag key.
+            </summary>
+            <returns>
+            Value.
+            </returns>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.GetVehicleCheatPowerIncrease(System.Int32)">
             <summary>
             A getter for [SET_VEHICLE_CHEAT_POWER_INCREASE](#_0xB59E4BD37AE292DB).
@@ -9111,6 +9215,7 @@
             <summary>
             Gets the vehicle indicator light state. 0 = off, 1 = left, 2 = right, 3 = both
             </summary>
+            <param name="vehicle" />
             <returns>
             An integer.
             </returns>
@@ -9119,7 +9224,6 @@
             <summary>
             Gets the vehicle indicator light state. 0 = off, 1 = left, 2 = right, 3 = both
             </summary>
-            <param name="vehicle" />
             <returns>
             An integer.
             </returns>
@@ -9210,13 +9314,13 @@
             <summary>
             Returns the offset of the specified wheel relative to the wheel's axle center.
             </summary>
-            <param name="vehicle" />
-            <param name="wheelIndex" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetVehicleWheelXOffset2(System.Int32,System.Int32)">
             <summary>
             Returns the offset of the specified wheel relative to the wheel's axle center.
             </summary>
+            <param name="vehicle" />
+            <param name="wheelIndex" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.GetVehicleWheelieState(System.Int32)">
             <summary>
@@ -9489,6 +9593,14 @@
             The file contents
             </returns>
         </member>
+        <member name="M:CitizenFX.Core.Native.API.MumbleAddVoiceChannelListen(System.Int32)">
+            <summary>
+            Starts listening to the specified channel, when available.
+            </summary>
+            <param name="channel">
+            A game voice channel ID.
+            </param>
+        </member>
         <member name="M:CitizenFX.Core.Native.API.MumbleAddVoiceTargetChannel(System.Int32,System.Int32)">
             <summary>
             Adds the specified channel to the target list for the specified Mumble voice target ID.
@@ -9556,6 +9668,34 @@
             <returns>
             Int representing the identifier of the voice channel.
             </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.MumbleIsConnected">
+            <summary>
+            This native will return true if the user succesfully connected to the voice server.
+            If the user disabled the voice-chat setting it will return false.
+            </summary>
+            <returns>
+            True if the player is connected to a mumble server.
+            </returns>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.MumbleRemoveVoiceChannelListen(System.Int32)">
+            <summary>
+            Stops listening to the specified channel.
+            </summary>
+            <param name="channel">
+            A game voice channel ID.
+            </param>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.MumbleSetServerAddress(System.String,System.Int32)">
+            <summary>
+            Changes the Mumble server address to connect to, and reconnects to the new address.
+            </summary>
+            <param name="address">
+            The address of the mumble server.
+            </param>
+            <param name="port">
+            The port of the mumble server.
+            </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.MumbleSetVoiceTarget(System.Int32)">
             <summary>
@@ -10501,13 +10641,47 @@
             Milliseconds.
             </param>
         </member>
-        <member name="M:CitizenFX.Core.Native.API.SetMillisecondsPerGameMinute2(System.Int32)">
+        <member name="M:CitizenFX.Core.Native.API.SetMillisecondsPerGameMinute3(System.Int32)">
             <summary>
             Overrides how many real ms are equal to one game minute.
             A setter for [`GetMillisecondsPerGameMinute`](#_0x2F8B4D1C595B11DB).
             </summary>
             <param name="_value">
             Milliseconds.
+            </param>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.SetMinimapClipType(System.Int32)">
+            <summary>
+            Sets the type for the minimap blip clipping object to be either rectangular or rounded.
+            </summary>
+            <param name="type">
+            0 for rectangular, 1 for rounded.
+            </param>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.SetMinimapComponentPosition(System.String,System.String,System.String,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Overrides the minimap component data (from `common:/data/ui/frontend.xml`) for a specified component.
+            </summary>
+            <param name="name">
+            The name of the minimap component to override.
+            </param>
+            <param name="alignX">
+            Equivalent to the `alignX` field in `frontend.xml`.
+            </param>
+            <param name="alignY">
+            Equivalent to the `alignY` field in `frontend.xml`.
+            </param>
+            <param name="posX">
+            Equivalent to the `posX` field in `frontend.xml`.
+            </param>
+            <param name="posY">
+            Equivalent to the `posY` field in `frontend.xml`.
+            </param>
+            <param name="sizeX">
+            Equivalent to the `sizeX` field in `frontend.xml`.
+            </param>
+            <param name="sizeY">
+            Equivalent to the `sizeY` field in `frontend.xml`.
             </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetMinimapHideFow(System.Boolean)">
@@ -10668,6 +10842,14 @@
             </param>
             <param name="a">
             The new A value (0-255).
+            </param>
+        </member>
+        <member name="M:CitizenFX.Core.Native.API.SetStateBagValue(System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Internal function for setting a state bag value.
+            </summary>
+            <param name="replicated">
+            :
             </param>
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetThreadPriority(System.Int32)">
@@ -10928,9 +11110,6 @@
             end
             ```
             </summary>
-            <param name="vehicle" />
-            <param name="wheelIndex" />
-            <param name="offset" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetVehicleWheelXOffset2(System.Int32,System.Int32,System.Single)">
             <summary>
@@ -10944,6 +11123,9 @@
             end
             ```
             </summary>
+            <param name="vehicle" />
+            <param name="wheelIndex" />
+            <param name="offset" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.SetVehicleWheelieState(System.Int32,System.Int32)">
             <summary>
@@ -11217,14 +11399,14 @@
             <summary>
             The backing function for TriggerEvent.
             </summary>
+            <param name="eventName" />
+            <param name="eventPayload" />
+            <param name="payloadLength" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.TriggerEventInternal2(System.String,System.String,System.Int32)">
             <summary>
             The backing function for TriggerEvent.
             </summary>
-            <param name="eventName" />
-            <param name="eventPayload" />
-            <param name="payloadLength" />
         </member>
         <member name="M:CitizenFX.Core.Native.API.TriggerLatentServerEventInternal(System.String,System.String,System.Int32,System.Int32)">
             <summary>

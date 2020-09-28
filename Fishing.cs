@@ -322,12 +322,11 @@ namespace ak_fishing
                     API.ClearPedTasks(data.FishHandle, 0, 0);
                     API.TaskSmartFleeCoord(data.FishHandle, playerCoords.X, playerCoords.Y, playerCoords.Z, distance, -1, true, true);
                     this.isFeeling = true;
+                    data.FishsizeIndex = 0;
                     this.isReelIn = false;
                     this.time = API.GetGameTimer() + 5000;
                     var fishCoords = API.GetEntityCoords(this.TargetFish, true, true);
                 
-                    SetFishTaskState(data);
-
 
                 }
                 if (reelIn && !this.isReelIn && !this.isFeeling)
@@ -335,6 +334,7 @@ namespace ak_fishing
                     this.isReelIn = true;
                     API.ClearPedTasks(data.FishHandle, 0, 0);
                     API.TaskGoToEntity(data.FishHandle, API.PlayerPedId(), -1, 1.0f, 1.5f, 0.0f, 0);
+                    data.FishsizeIndex = 4;
                 }
                 float X = data.FishingRodX;
                 float Y = data.FishingRodY;
