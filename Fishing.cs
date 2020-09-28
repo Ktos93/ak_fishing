@@ -201,6 +201,11 @@ namespace ak_fishing
                     this.AddItem = true;
                     TriggerServerEvent("ak_fishing:AddFish" , this.CurrentFishData.Name , weight);
                     int fish = this.TargetFish;
+                    API.DetachEntity(fish, true , true);
+                    API.SetEntityAsMissionEntity(fish, true, true);
+                    Function.Call((Hash)0x4971D2F8162B9674, fish);
+                    Function.Call((Hash)0xCC0EF140F99365C5, fish);
+                    API.SetEntityCoords(fish, 0.0f, 0.0f, 0.0f, false, false, false, false);
                     Debug.WriteLine($"tenstion_{fish}");
                     SetFishTaskState(data);
                     this.TargetFish = 0;
@@ -728,7 +733,7 @@ namespace ak_fishing
                 {
                     if (entity != playerPed)
                     {
-
+                        if (!API.IsEntityDead(entity))
                         if (isFishIntesedted(API.GetEntityModel(entity), bobberCoords))
                         {
                             output = entity;
