@@ -34,8 +34,12 @@ namespace ak_fishing
 
         public int time { get; set; }
 
+        public int FXTimer { get; set; }
+
         public int FindFishTimer { get; set; }
-        
+
+        public int TimeCanBeAdded { get; set; }
+
         public float tenstion_ { get; set; }
         public bool SellActive  { get; set; }
 
@@ -201,6 +205,10 @@ namespace ak_fishing
                     this.AddItem = true;
                     TriggerServerEvent("ak_fishing:AddFish" , this.CurrentFishData.Name , weight);
                     int fish = this.TargetFish;
+                    API.DetachEntity(fish, true , true);
+                    API.SetEntityAsMissionEntity(fish, true, true);
+                    API.DeleteEntity(ref fish);
+                    API.SetEntityCoords(this.TargetFish, 0.0f, 0.0f, 0.0f, false, false, false, false);
                     Debug.WriteLine($"tenstion_{fish}");
                     SetFishTaskState(data);
                     this.TargetFish = 0;
@@ -324,7 +332,8 @@ namespace ak_fishing
                     this.isFeeling = true;
                     data.FishsizeIndex = 0;
                     this.isReelIn = false;
-                    this.time = API.GetGameTimer() + 5000;
+                    Debug.WriteLine($"time added{this.TimeCanBeAdded}");
+                    this.time = API.GetGameTimer() + 5000 + this.TimeCanBeAdded;
                     var fishCoords = API.GetEntityCoords(this.TargetFish, true, true);
                 
 
@@ -398,20 +407,29 @@ namespace ak_fishing
                 {
                     this.tenstion_ = Math.Max(this.tenstion_ - 0.0025f, 0f);
                 }
-               
+                if (this.tenstion_ + (X_Y / 8) > 0.7f)
+                {
+                    this.time = this.time - 15;
+                }
+                   
                 data.Tension = this.tenstion_ + (X_Y / 8);
                 data.RodShakeMultiplier = (this.tenstion_ + (X_Y / 8f)) *1.1f;
                 data.ShakeFightMultiplier = (this.tenstion_ + (X_Y / 8f) ) *1.2f;
-               
+
 
                 if (this.isFeeling)
                 {
                     PlayPtfx();
                 }
+                else
+                {
+                    this.TimeCanBeAdded = this.TimeCanBeAdded + 18;
+                }
 
                 if (this.isFeeling && gametimer > this.time)
                 {
                     this.isFeeling = false;
+                    this.TimeCanBeAdded = 0;
                     API.ClearPedTasks(data.FishHandle, 0, 0);
                    
                 }
@@ -628,6 +646,7 @@ namespace ak_fishing
         }
         private async Task PlayPtfx()
         {
+            if (this.FXTimer < API.GetGameTimer()) { 
             Random rnd = new Random();
             var fishCoords = API.GetEntityCoords(this.TargetFish, true, true);
             float waterHeight = fishCoords.Z;
@@ -638,7 +657,8 @@ namespace ak_fishing
 
             Function.Call((Hash)0xDCF5BA95BBF0FABA, API.GetSoundId(), "VFX_SPLASH", fishCoords.X, fishCoords.Y, fishCoords.Z, 1048576000, 0, 0, 1);
             Function.Call((Hash)0x503703EC1781B7D6, API.GetSoundId(), "FishSize", API.PlayerPedId(), 1f);
-
+                this.FXTimer = API.GetGameTimer() + 20;
+            }
 
         }
         public int CreateReelInPrompt()
@@ -728,7 +748,7 @@ namespace ak_fishing
                 {
                     if (entity != playerPed)
                     {
-
+                        if (!API.IsEntityDead(entity))
                         if (isFishIntesedted(API.GetEntityModel(entity), bobberCoords))
                         {
                             output = entity;
