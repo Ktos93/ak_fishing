@@ -3,10 +3,8 @@ using CitizenFX.Core.Native;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
 using System.Threading.Tasks;
 
 
@@ -72,25 +70,25 @@ namespace ak_fishing
 
         private static readonly List<FishData> FishDatas = new List<FishData>
         {
-        new FishData(API.GetHashKey("A_C_FishBluegil_01_ms"),  FishLocation.River,  FishBait.p_finishedragonfly01x,   0.2f,  0.9f , "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishBluegil_01_sm"),  FishLocation.Lake,   FishBait.p_baitCheese01x,   0.2f,  0.5f , "smallfish"),
+        new FishData(API.GetHashKey("A_C_FishBluegil_01_ms"),  FishLocation.River,  FishBait.p_finishedragonfly01x ,   0.2f,  0.9f , "smallfish"),
+        new FishData(API.GetHashKey("A_C_FishBluegil_01_sm"),  FishLocation.Lake,   FishBait.p_baitCheese01x | FishBait.p_baitBread01x,   0.2f,  0.5f , "smallfish"),
         new FishData(API.GetHashKey("A_C_FishMuskie_01_lg"),  FishLocation.Lake,   FishBait.p_FinisdFishlure01x,   6.3f,  9.5f, "largefish"),
         new FishData(API.GetHashKey("A_C_FishBullHeadCat_01_ms"),  FishLocation.Swamp,   FishBait.p_finishedragonfly01x,  0.25f,  0.9f, "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishBullHeadCat_01_sm"),  FishLocation.Swamp,   FishBait.p_baitCorn01x,  0.1f,  0.5f, "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishChainPickerel_01_sm"),  FishLocation.River,   FishBait.p_baitCorn01x,  0.25f,  0.9f,"smallfish"),
+        new FishData(API.GetHashKey("A_C_FishBullHeadCat_01_sm"),  FishLocation.Swamp,   FishBait.p_baitCorn01x | FishBait.p_baitCheese01x,  0.1f,  0.5f, "smallfish"),
+        new FishData(API.GetHashKey("A_C_FishChainPickerel_01_sm"),  FishLocation.River,   FishBait.p_baitCorn01x | FishBait.p_baitCheese01x,  0.25f,  0.9f,"smallfish"),
         new FishData(API.GetHashKey("A_C_FishChannelCatfish_01_lg"),  FishLocation.Swamp,   FishBait.p_finishedragonfly01x,  6.3f,  9.2f , "largefish"),
         new FishData(API.GetHashKey("A_C_FishLargeMouthBass_01_ms"),  FishLocation.Swamp,   FishBait.p_finishdcrawd01x,  1.8f,  2.7f , "mediumfish"),
         new FishData(API.GetHashKey("A_C_FishLongNoseGar_01_lg"),  FishLocation.Swamp,   FishBait.p_FinisdFishlure01x,   6.3f,  9.2f , "largefish"),
-        new FishData(API.GetHashKey("A_C_FishNorthernPike_01_lg"),  FishLocation.River,   FishBait.p_baitCricket01x,   6.3f,  9.2f , "largefish"),
-        new FishData(API.GetHashKey("A_C_FishPerch_01_ms"),  FishLocation.River,   FishBait.p_baitBread01x,  0.26f,  0.9f , "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishPerch_01_sm"),  FishLocation.Lake,   FishBait.p_baitBread01x,  0.15f,  0.5f , "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishRainbowTrout_01_ms"),  FishLocation.Lake,   FishBait.p_baitCricket01x,  0.5f,  1.5f, "mediumfish"),
-        new FishData(API.GetHashKey("A_C_FishRainbowTrout_01_lg"),  FishLocation.Lake,   FishBait.p_baitCricket01x,  1.5f,  2.7f ,"mediumfish"),
+        new FishData(API.GetHashKey("A_C_FishNorthernPike_01_lg"),  FishLocation.River,   FishBait.p_baitCricket01x | FishBait.p_finishedragonfly01x,   6.3f,  9.2f , "largefish"),
+        new FishData(API.GetHashKey("A_C_FishPerch_01_ms"),  FishLocation.River,   FishBait.p_baitBread01x | FishBait.p_baitCorn01x,  0.26f,  0.9f , "smallfish"),
+        new FishData(API.GetHashKey("A_C_FishPerch_01_sm"),  FishLocation.Lake,   FishBait.p_baitBread01x | FishBait.p_baitCorn01x,  0.15f,  0.5f , "smallfish"),
+        new FishData(API.GetHashKey("A_C_FishRainbowTrout_01_ms"),  FishLocation.Lake,   FishBait.p_baitCricket01x | FishBait.p_FinisdFishlure01x,  0.5f,  1.5f, "mediumfish"),
+        new FishData(API.GetHashKey("A_C_FishRainbowTrout_01_lg"),  FishLocation.Lake,   FishBait.p_baitCricket01x | FishBait.p_FinisdFishlure01x,  1.5f,  2.7f ,"mediumfish"),
         new FishData(API.GetHashKey("A_C_FishRedfinPickerel_01_ms"),  FishLocation.River,   FishBait.p_FinisdFishlure01x,  0.26f,  0.9f , "smallfish"),
         new FishData(API.GetHashKey("A_C_FishRedfinPickerel_01_sm"),  FishLocation.River,   FishBait.p_baitCheese01x,  0.17f,  0.5f, "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishRockBass_01_ms"),  FishLocation.Lake,   FishBait.p_baitCorn01x,  0.26f,  0.9f ,"smallfish"),
+        new FishData(API.GetHashKey("A_C_FishRockBass_01_ms"),  FishLocation.Lake,   FishBait.p_baitCorn01x | FishBait.p_baitCheese01x,  0.26f,  0.9f ,"smallfish"),
         new FishData(API.GetHashKey("A_C_FishRockBass_01_sm"),  FishLocation.Lake,   FishBait.p_FinisdFishlure01x,  0.1f,  0.4f , "smallfish"),
-        new FishData(API.GetHashKey("A_C_FishSalmonSockeye_01_ms"),  FishLocation.River,   FishBait.p_baitCricket01x,  1.8f,  2.7f , "mediumfish"),
+        new FishData(API.GetHashKey("A_C_FishSalmonSockeye_01_ms"),  FishLocation.River,   FishBait.p_baitCricket01x | FishBait.p_finishedragonfly01x,  1.8f,  2.7f , "mediumfish"),
         new FishData(API.GetHashKey("A_C_FishSmallMouthBass_01_ms"),  FishLocation.River,   FishBait.p_baitCheese01x,  1.8f,  2.7f , "mediumfish"),
 
 
